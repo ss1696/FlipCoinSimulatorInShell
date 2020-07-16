@@ -15,6 +15,27 @@ do
 	fi
 	((count++))
 done
-echo "head won  $headWon times"
-echo "tail won  $tailWon times"
 
+differenceOfHead=$(($headWon-$tailWon))
+differenceOfTail=$(($tailWon-$headWon))
+
+while [ $differenceOfHead -lt 2 ] && [ $differenceOfTail -lt 2 ]
+do
+        result=$((RANDOM%2))
+        if [[ $result -eq 1 ]]
+        then
+                ((headWon++))
+        else
+                ((tailWon++))
+        fi
+        ((count++))
+	differenceOfHead=$(($headWon-$tailWon))
+	differenceOfTail=$(($tailWon-$headWon))
+done
+
+if [[ $headWon -gt $tailWon ]]
+then
+	echo "head won by $differenceOfHead"
+else
+	echo "tail won by $differenceOfTail"
+fi
